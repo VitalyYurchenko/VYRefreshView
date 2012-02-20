@@ -1,0 +1,430 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D821D3C914F23F2800806F06 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D821D3C814F23F2800806F06 /* UIKit.framework */; };
+		D821D3CB14F23F2800806F06 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D821D3CA14F23F2800806F06 /* Foundation.framework */; };
+		D821D3CD14F23F2800806F06 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D821D3CC14F23F2800806F06 /* CoreGraphics.framework */; };
+		D821D3D314F23F2800806F06 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D821D3D114F23F2800806F06 /* InfoPlist.strings */; };
+		D821D3D514F23F2800806F06 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D821D3D414F23F2800806F06 /* main.m */; };
+		D821D3D914F23F2800806F06 /* VYAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D821D3D814F23F2800806F06 /* VYAppDelegate.m */; };
+		D821D3E114F23F2800806F06 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D821D3E014F23F2800806F06 /* SenTestingKit.framework */; };
+		D821D3E214F23F2800806F06 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D821D3C814F23F2800806F06 /* UIKit.framework */; };
+		D821D3E314F23F2800806F06 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D821D3CA14F23F2800806F06 /* Foundation.framework */; };
+		D821D3EB14F23F2800806F06 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D821D3E914F23F2800806F06 /* InfoPlist.strings */; };
+		D821D3EE14F23F2800806F06 /* RefreshTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D821D3ED14F23F2800806F06 /* RefreshTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D821D3E414F23F2800806F06 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D821D3BB14F23F2800806F06 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D821D3C314F23F2800806F06;
+			remoteInfo = Refresh;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		D821D3C414F23F2800806F06 /* Refresh.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Refresh.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D821D3C814F23F2800806F06 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		D821D3CA14F23F2800806F06 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		D821D3CC14F23F2800806F06 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		D821D3D014F23F2800806F06 /* Refresh-Info.plist */ = {isa = PBXFileReference; path = "Refresh-Info.plist"; sourceTree = "<group>"; };
+		D821D3D214F23F2800806F06 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D821D3D414F23F2800806F06 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		D821D3D614F23F2800806F06 /* Refresh-Prefix.pch */ = {isa = PBXFileReference; path = "Refresh-Prefix.pch"; sourceTree = "<group>"; };
+		D821D3D714F23F2800806F06 /* VYAppDelegate.h */ = {isa = PBXFileReference; path = VYAppDelegate.h; sourceTree = "<group>"; };
+		D821D3D814F23F2800806F06 /* VYAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VYAppDelegate.m; sourceTree = "<group>"; };
+		D821D3DF14F23F2800806F06 /* RefreshTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RefreshTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D821D3E014F23F2800806F06 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		D821D3E814F23F2800806F06 /* RefreshTests-Info.plist */ = {isa = PBXFileReference; path = "RefreshTests-Info.plist"; sourceTree = "<group>"; };
+		D821D3EA14F23F2800806F06 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D821D3EC14F23F2800806F06 /* RefreshTests.h */ = {isa = PBXFileReference; path = RefreshTests.h; sourceTree = "<group>"; };
+		D821D3ED14F23F2800806F06 /* RefreshTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RefreshTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D821D3C114F23F2800806F06 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D821D3C914F23F2800806F06 /* UIKit.framework in Frameworks */,
+				D821D3CB14F23F2800806F06 /* Foundation.framework in Frameworks */,
+				D821D3CD14F23F2800806F06 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D821D3DB14F23F2800806F06 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D821D3E114F23F2800806F06 /* SenTestingKit.framework in Frameworks */,
+				D821D3E214F23F2800806F06 /* UIKit.framework in Frameworks */,
+				D821D3E314F23F2800806F06 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D821D3B914F23F2800806F06 = {
+			isa = PBXGroup;
+			children = (
+				D821D3CE14F23F2800806F06 /* Refresh */,
+				D821D3E614F23F2800806F06 /* RefreshTests */,
+				D821D3C714F23F2800806F06 /* Frameworks */,
+				D821D3C514F23F2800806F06 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D821D3C514F23F2800806F06 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D821D3C414F23F2800806F06 /* Refresh.app */,
+				D821D3DF14F23F2800806F06 /* RefreshTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D821D3C714F23F2800806F06 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D821D3C814F23F2800806F06 /* UIKit.framework */,
+				D821D3CA14F23F2800806F06 /* Foundation.framework */,
+				D821D3CC14F23F2800806F06 /* CoreGraphics.framework */,
+				D821D3E014F23F2800806F06 /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D821D3CE14F23F2800806F06 /* Refresh */ = {
+			isa = PBXGroup;
+			children = (
+				D821D3D714F23F2800806F06 /* VYAppDelegate.h */,
+				D821D3D814F23F2800806F06 /* VYAppDelegate.m */,
+				D821D3CF14F23F2800806F06 /* Supporting Files */,
+			);
+			path = Refresh;
+			sourceTree = "<group>";
+		};
+		D821D3CF14F23F2800806F06 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D821D3D014F23F2800806F06 /* Refresh-Info.plist */,
+				D821D3D114F23F2800806F06 /* InfoPlist.strings */,
+				D821D3D414F23F2800806F06 /* main.m */,
+				D821D3D614F23F2800806F06 /* Refresh-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D821D3E614F23F2800806F06 /* RefreshTests */ = {
+			isa = PBXGroup;
+			children = (
+				D821D3EC14F23F2800806F06 /* RefreshTests.h */,
+				D821D3ED14F23F2800806F06 /* RefreshTests.m */,
+				D821D3E714F23F2800806F06 /* Supporting Files */,
+			);
+			path = RefreshTests;
+			sourceTree = "<group>";
+		};
+		D821D3E714F23F2800806F06 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D821D3E814F23F2800806F06 /* RefreshTests-Info.plist */,
+				D821D3E914F23F2800806F06 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D821D3C314F23F2800806F06 /* Refresh */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D821D3F114F23F2800806F06 /* Build configuration list for PBXNativeTarget "Refresh" */;
+			buildPhases = (
+				D821D3C014F23F2800806F06 /* Sources */,
+				D821D3C114F23F2800806F06 /* Frameworks */,
+				D821D3C214F23F2800806F06 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Refresh;
+			productName = Refresh;
+			productReference = D821D3C414F23F2800806F06 /* Refresh.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D821D3DE14F23F2800806F06 /* RefreshTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D821D3F414F23F2800806F06 /* Build configuration list for PBXNativeTarget "RefreshTests" */;
+			buildPhases = (
+				D821D3DA14F23F2800806F06 /* Sources */,
+				D821D3DB14F23F2800806F06 /* Frameworks */,
+				D821D3DC14F23F2800806F06 /* Resources */,
+				D821D3DD14F23F2800806F06 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D821D3E514F23F2800806F06 /* PBXTargetDependency */,
+			);
+			name = RefreshTests;
+			productName = RefreshTests;
+			productReference = D821D3DF14F23F2800806F06 /* RefreshTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D821D3BB14F23F2800806F06 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = VY;
+				LastUpgradeCheck = 0430;
+				ORGANIZATIONNAME = "Vitaly Yurchenko";
+			};
+			buildConfigurationList = D821D3BE14F23F2800806F06 /* Build configuration list for PBXProject "Refresh" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = D821D3B914F23F2800806F06;
+			productRefGroup = D821D3C514F23F2800806F06 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D821D3C314F23F2800806F06 /* Refresh */,
+				D821D3DE14F23F2800806F06 /* RefreshTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D821D3C214F23F2800806F06 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D821D3D314F23F2800806F06 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D821D3DC14F23F2800806F06 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D821D3EB14F23F2800806F06 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		D821D3DD14F23F2800806F06 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D821D3C014F23F2800806F06 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D821D3D514F23F2800806F06 /* main.m in Sources */,
+				D821D3D914F23F2800806F06 /* VYAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D821D3DA14F23F2800806F06 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D821D3EE14F23F2800806F06 /* RefreshTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D821D3E514F23F2800806F06 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D821D3C314F23F2800806F06 /* Refresh */;
+			targetProxy = D821D3E414F23F2800806F06 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		D821D3D114F23F2800806F06 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D821D3D214F23F2800806F06 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		D821D3E914F23F2800806F06 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D821D3EA14F23F2800806F06 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D821D3EF14F23F2800806F06 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D821D3F014F23F2800806F06 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D821D3F214F23F2800806F06 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Refresh/Refresh-Prefix.pch";
+				INFOPLIST_FILE = "Refresh/Refresh-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		D821D3F314F23F2800806F06 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Refresh/Refresh-Prefix.pch";
+				INFOPLIST_FILE = "Refresh/Refresh-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		D821D3F514F23F2800806F06 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Refresh.app/Refresh";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Refresh/Refresh-Prefix.pch";
+				INFOPLIST_FILE = "RefreshTests/RefreshTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		D821D3F614F23F2800806F06 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Refresh.app/Refresh";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Refresh/Refresh-Prefix.pch";
+				INFOPLIST_FILE = "RefreshTests/RefreshTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D821D3BE14F23F2800806F06 /* Build configuration list for PBXProject "Refresh" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D821D3EF14F23F2800806F06 /* Debug */,
+				D821D3F014F23F2800806F06 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D821D3F114F23F2800806F06 /* Build configuration list for PBXNativeTarget "Refresh" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D821D3F214F23F2800806F06 /* Debug */,
+				D821D3F314F23F2800806F06 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		D821D3F414F23F2800806F06 /* Build configuration list for PBXNativeTarget "RefreshTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D821D3F514F23F2800806F06 /* Debug */,
+				D821D3F614F23F2800806F06 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D821D3BB14F23F2800806F06 /* Project object */;
+}

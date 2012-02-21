@@ -32,9 +32,14 @@ typedef enum
 }
 
 @property (nonatomic, readonly) VYRefreshViewState state;
-@property(nonatomic, weak) id<VYRefreshViewDelegate> delegate;
+@property (nonatomic, weak) id<VYRefreshViewDelegate> delegate;
 
 - (id)initWithScrollView:(UIScrollView *)scrollView;
+
+- (void)scrollViewDidScroll;
+- (void)scrollViewDidEndDragging;
+
+- (void)updateLastRefreshDate;
 
 - (void)startRefreshing;
 - (void)stopRefreshing;
@@ -50,6 +55,6 @@ typedef enum
 - (BOOL)refreshViewShouldStartRefresh:(VYRefreshView *)view;
 
 @optional
-- (NSDate *)refreshLastRefreshDate:(VYRefreshView *)view;
+- (NSDate *)refreshViewLastRefreshDate:(VYRefreshView *)view;
 
 @end

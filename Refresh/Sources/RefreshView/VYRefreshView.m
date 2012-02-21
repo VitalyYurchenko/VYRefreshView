@@ -13,18 +13,16 @@
 
 // ********************************************************************************************************************************************************** //
 
-static CGFloat const kRefreshViewHeight = 60;
-static CGFloat const kRefreshViewActionTopOffset = -65.0;
+static CGFloat const kRefreshViewHeight = 60.0;
+static CGFloat const kRefreshViewActionTopThreshold = -65.0;
 
 static CGFloat const kArrowAnimationDuration = 0.15;
 
 // ********************************************************************************************************************************************************** //
 
-@interface VYRefreshView () <UIScrollViewDelegate>
+@interface VYRefreshView ()
 
 @property (nonatomic, readwrite) VYRefreshViewState state;
-
-- (void)updateLastRefreshDate;
 
 @end
 
@@ -56,7 +54,7 @@ static CGFloat const kArrowAnimationDuration = 0.15;
         self.backgroundColor = [UIColor clearColor];
         
         // Create and setup status label.
-        _statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, frame.size.height - 50.0, frame.size.width, 20.0)];
+        _statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, frame.size.height - kRefreshViewHeight + 10, frame.size.width, 20.0)];
 		_statusLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         _statusLabel.backgroundColor = [UIColor clearColor];
         _statusLabel.font = [UIFont boldSystemFontOfSize:13.0];
@@ -68,7 +66,7 @@ static CGFloat const kArrowAnimationDuration = 0.15;
 		[self addSubview:_statusLabel];
         
         // Create and set up details label.
-		_detailsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, frame.size.height - 35.0, frame.size.width, 20.0)];
+		_detailsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, frame.size.height - kRefreshViewHeight + 30.0, frame.size.width, 20.0)];
 		_detailsLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         _detailsLabel.backgroundColor = [UIColor clearColor];
 		_detailsLabel.font = [UIFont systemFontOfSize:12.0];
@@ -81,7 +79,7 @@ static CGFloat const kArrowAnimationDuration = 0.15;
 		
 		// Create and set up arrow layer.
 		_arrowLayer = [CALayer layer];
-		_arrowLayer.frame = CGRectMake(25.0, frame.size.height + kRefreshViewActionTopOffset, 30.0, 55.0);
+		_arrowLayer.frame = CGRectMake(25.0, frame.size.height + kRefreshViewActionTopThreshold, 30.0, kRefreshViewHeight - 10);
 		_arrowLayer.contents = (id)[UIImage imageNamed:@"ARROW_GRAY.png"].CGImage;
         _arrowLayer.contentsGravity = kCAGravityResizeAspect;
         _arrowLayer.contentsScale = [UIScreen mainScreen].scale;
@@ -90,7 +88,7 @@ static CGFloat const kArrowAnimationDuration = 0.15;
 		
         // Create and set up activity indicator.
 		_activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-		_activityIndicator.frame = CGRectMake(25.0, frame.size.height - 35.0, 20.0, 20.0);
+		_activityIndicator.frame = CGRectMake(25.0, frame.size.height - kRefreshViewHeight/2 - 10.0, 20.0, 20.0);
         
 		[self addSubview:_activityIndicator];
 		
@@ -103,60 +101,9 @@ static CGFloat const kArrowAnimationDuration = 0.15;
 
 - (id)initWithScrollView:(UIScrollView *)scrollView
 {
-    id refreshView = [self initWithFrame:CGRectMake(0.0, 0.0 - scrollView.bounds.size.height, scrollView.bounds.size.width, scrollView.bounds.size.height)];
-    
     _scrollView = scrollView;
-    _scrollView.delegate = refreshView;
     
-    return refreshView;
-}
-
-#pragma mark -
-#pragma mark <UIScrollViewDelegate>
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-	if (self.state == VYRefreshViewStateRefreshing)
-    {
-		CGFloat topOffset = MAX(-scrollView.contentOffset.y, 0);
-		topOffset = MIN(topOffset, kRefreshViewHeight);
-        
-		scrollView.contentInset = UIEdgeInsetsMake(topOffset, 0.0, 0.0, 0.0);
-	}
-    else if ([scrollView isDragging])
-    {
-        if (![self isRefreshing])
-        {
-            if ((self.state == VYRefreshViewStatePulling) && (scrollView.contentOffset.y > kRefreshViewActionTopOffset) && (scrollView.contentOffset.y < 0.0))
-            {
-                self.state = VYRefreshViewStateNormal;
-            }
-            else if ((self.state == VYRefreshViewStateNormal) && (scrollView.contentOffset.y < kRefreshViewActionTopOffset))
-            {
-                self.state = VYRefreshViewStatePulling;
-            }
-        }
-		
-		if (scrollView.contentInset.top != 0)
-        {
-			scrollView.contentInset = UIEdgeInsetsZero;
-		}
-	}
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
-{
-	if (![self isRefreshing] && (scrollView.contentOffset.y <= kRefreshViewActionTopOffset))
-    {
-        if ([self.delegate refreshViewShouldStartRefresh:self])
-        {
-            [self startRefreshing];
-        }
-        else
-        {
-            self.state = VYRefreshViewStateNormal;
-        }
-	}
+    return [self initWithFrame:CGRectMake(0.0, 0.0 - scrollView.bounds.size.height, scrollView.bounds.size.width, scrollView.bounds.size.height)];
 }
 
 #pragma mark -
@@ -239,13 +186,58 @@ static CGFloat const kArrowAnimationDuration = 0.15;
 }
 
 #pragma mark -
-#pragma mark Private Methods
+#pragma mark Scroll View Callbacks
+
+- (void)scrollViewDidScroll
+{
+	if ([self isRefreshing])
+    {
+		CGFloat topOffset = MAX(-_scrollView.contentOffset.y, 0);
+		topOffset = MIN(topOffset, kRefreshViewHeight);
+        
+		_scrollView.contentInset = UIEdgeInsetsMake(topOffset, 0.0, 0.0, 0.0);
+	}
+    else if ([_scrollView isDragging])
+    {
+        if ((self.state == VYRefreshViewStatePulling) && (_scrollView.contentOffset.y > kRefreshViewActionTopThreshold) && (_scrollView.contentOffset.y < 0.0))
+        {
+            self.state = VYRefreshViewStateNormal;
+        }
+        else if ((self.state == VYRefreshViewStateNormal) && (_scrollView.contentOffset.y < kRefreshViewActionTopThreshold))
+        {
+            self.state = VYRefreshViewStatePulling;
+        }
+		
+		if (_scrollView.contentInset.top != 0)
+        {
+			_scrollView.contentInset = UIEdgeInsetsZero;
+		}
+	}
+}
+
+- (void)scrollViewDidEndDragging
+{
+	if (![self isRefreshing] && (_scrollView.contentOffset.y <= kRefreshViewActionTopThreshold))
+    {
+        if ([self.delegate refreshViewShouldStartRefresh:self])
+        {
+            [self startRefreshing];
+        }
+        else
+        {
+            self.state = VYRefreshViewStateNormal;
+        }
+	}
+}
+
+#pragma mark -
+#pragma mark Public Methods
 
 - (void)updateLastRefreshDate
 {	
-	if ([self.delegate respondsToSelector:@selector(refreshLastRefreshDate:)])
+	if ([self.delegate respondsToSelector:@selector(refreshViewLastRefreshDate:)])
     {
-		NSDate *date = [self.delegate refreshLastRefreshDate:self];
+		NSDate *date = [self.delegate refreshViewLastRefreshDate:self];
 		
 		NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
 		[formatter setAMSymbol:@"AM"];
@@ -254,7 +246,7 @@ static CGFloat const kArrowAnimationDuration = 0.15;
         
 		_detailsLabel.text = [NSString stringWithFormat:@"Last Updated: %@", [formatter stringFromDate:date]];
 		[[NSUserDefaults standardUserDefaults] setObject:_detailsLabel.text forKey:@"VYRefreshViewLastRefresh"];
-		[[NSUserDefaults standardUserDefaults] synchronize];		
+		[[NSUserDefaults standardUserDefaults] synchronize];
 	}
     else
     {

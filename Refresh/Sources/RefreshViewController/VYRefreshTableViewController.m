@@ -28,7 +28,9 @@
         _refreshView = [[VYRefreshView alloc] initWithScrollView:self.tableView];
         _refreshView.delegate = self;
         
-        [self.tableView addSubview:_refreshView];      
+        [self.tableView addSubview:_refreshView];
+        
+        [_refreshView updateLastRefreshDate];
     }
 }
 
@@ -74,8 +76,21 @@
     }
     
     cell.textLabel.text = [NSString stringWithFormat:@"Row %i", indexPath.row];
-        
+    
     return cell;
+}
+
+#pragma mark -
+#pragma mark <UIScrollViewDelegate>
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [_refreshView scrollViewDidScroll];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    [_refreshView scrollViewDidEndDragging];
 }
 
 #pragma mark -
@@ -88,7 +103,7 @@
     return YES;
 }
 
-- (NSDate *)refreshLastRefreshDate:(VYRefreshView *)view
+- (NSDate *)refreshViewLastRefreshDate:(VYRefreshView *)view
 {
 	return [NSDate date];
 }

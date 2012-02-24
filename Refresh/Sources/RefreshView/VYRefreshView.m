@@ -219,7 +219,7 @@ static CGFloat const kArrowAnimationDuration = 0.15;
 {
 	if (![self isRefreshing] && (_scrollView.contentOffset.y <= kRefreshViewActionTopThreshold))
     {
-        if ([self.delegate refreshViewShouldStartRefresh:self])
+        if (!self.hidden && [self.delegate refreshViewShouldStartRefresh:self])
         {
             [self startRefreshing];
         }

@@ -13,7 +13,7 @@
 
 @implementation VYRefreshTableViewController
 {
-    VYRefreshView *_refreshView;
+    __strong VYRefreshView *_refreshView;
 }
 
 #pragma mark -
@@ -24,11 +24,9 @@
     [super viewDidLoad];
 
     if (_refreshView == nil)
-    {
-        _refreshView = [[VYRefreshView alloc] initWithScrollView:self.tableView];
+    {        
+        _refreshView = [VYRefreshView refreshViewAddedToScrollView:self.tableView];
         _refreshView.delegate = self;
-        
-        [self.tableView addSubview:_refreshView];
         
         [_refreshView updateLastRefreshDate];
     }
@@ -62,6 +60,11 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     return [NSString stringWithFormat:@"Section #%i", section];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
+{
+    return [NSString stringWithFormat:@"Footer #%i.", section];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

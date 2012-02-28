@@ -22,12 +22,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    VYRefreshTableViewController *rootViewController = [[VYRefreshTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    VYRefreshTableViewController *rootViewController = [[VYRefreshTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
     
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.rootViewController = rootViewController;
     
     [self.window makeKeyAndVisible];
+    
     return YES;
 }
 

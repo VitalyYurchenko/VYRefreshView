@@ -15,12 +15,23 @@
 
 // ********************************************************************************************************************************************************** //
 
-typedef enum
+enum
 {
     VYRefreshViewStateNormal = 0,
 	VYRefreshViewStatePulling,
 	VYRefreshViewStateRefreshing,
-} VYRefreshViewState;
+};
+typedef NSUInteger VYRefreshViewState;
+
+enum
+{
+    VYRefreshViewStyleDefault = 0,
+    VYRefreshViewStyleBlue,
+	VYRefreshViewStyleWhite,
+	VYRefreshViewStyleGray,
+    VYRefreshViewStyleBlack
+};
+typedef NSUInteger VYRefreshViewStyle;
 
 // ********************************************************************************************************************************************************** //
 
@@ -28,11 +39,27 @@ typedef enum
 {
 @private
 	VYRefreshViewState _state;
+    VYRefreshViewStyle _style;
+    
+    NSString *_titleForNormalState;
+    NSString *_titleForPullingState;
+    NSString *_titleForRefreshingState;
+    
     __weak id<VYRefreshViewDelegate> _delegate;
 }
 
 @property (nonatomic, readonly) VYRefreshViewState state;
+@property (nonatomic, assign) VYRefreshViewStyle style;
+
+@property (nonatomic, copy) NSString *titleForNormalState;
+@property (nonatomic, copy) NSString *titleForPullingState;
+@property (nonatomic, copy) NSString *titleForRefreshingState;
+@property (nonatomic, copy) NSString *titleForLastRefreshDate;
+
 @property (nonatomic, weak) id<VYRefreshViewDelegate> delegate;
+
++ (VYRefreshView *)refreshViewForScrollView:(UIScrollView *)scrollView;
++ (VYRefreshView *)refreshViewAddedToScrollView:(UIScrollView *)scrollView;
 
 - (id)initWithScrollView:(UIScrollView *)scrollView;
 

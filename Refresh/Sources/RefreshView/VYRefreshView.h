@@ -36,19 +36,8 @@ typedef NSUInteger VYRefreshViewStyle;
 // ********************************************************************************************************************************************************** //
 
 @interface VYRefreshView : UIView
-{
-@private
-	VYRefreshViewState _state;
-    VYRefreshViewStyle _style;
-    
-    NSString *_titleForNormalState;
-    NSString *_titleForPullingState;
-    NSString *_titleForRefreshingState;
-    
-    __weak id<VYRefreshViewDelegate> _delegate;
-}
 
-@property (nonatomic, readonly) VYRefreshViewState state;
+@property (nonatomic, assign, readonly) VYRefreshViewState state;
 @property (nonatomic, assign) VYRefreshViewStyle style;
 
 @property (nonatomic, copy) NSString *titleForNormalState;

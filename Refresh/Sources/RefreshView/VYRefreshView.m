@@ -23,7 +23,7 @@ static CFTimeInterval const kArrowAnimationDuration = 0.15;
 
 @interface VYRefreshView ()
 
-@property (nonatomic, readwrite) VYRefreshViewState state;
+@property (nonatomic, assign, readwrite) VYRefreshViewState state;
 
 @end
 

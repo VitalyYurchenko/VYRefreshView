@@ -19,7 +19,6 @@
 		D821D42214F24B2A00806F06 /* VYAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D821D41A14F24B2A00806F06 /* VYAppDelegate.m */; };
 		D821D42314F24B2A00806F06 /* VYRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = D821D41D14F24B2A00806F06 /* VYRefreshView.m */; };
 		D821D42414F24B2A00806F06 /* VYRefreshTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D821D42014F24B2A00806F06 /* VYRefreshTableViewController.m */; };
-		D821D42514F24B2A00806F06 /* VYRefreshTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D821D42114F24B2A00806F06 /* VYRefreshTableViewController.xib */; };
 		D821D43014F24B9F00806F06 /* ARROW_BLACK.png in Resources */ = {isa = PBXBuildFile; fileRef = D821D42814F24B9F00806F06 /* ARROW_BLACK.png */; };
 		D821D43114F24B9F00806F06 /* ARROW_BLACK@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D821D42914F24B9F00806F06 /* ARROW_BLACK@2x.png */; };
 		D821D43214F24B9F00806F06 /* ARROW_BLUE.png in Resources */ = {isa = PBXBuildFile; fileRef = D821D42A14F24B9F00806F06 /* ARROW_BLUE.png */; };
@@ -60,7 +59,6 @@
 		D821D41D14F24B2A00806F06 /* VYRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VYRefreshView.m; sourceTree = "<group>"; };
 		D821D41F14F24B2A00806F06 /* VYRefreshTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VYRefreshTableViewController.h; sourceTree = "<group>"; };
 		D821D42014F24B2A00806F06 /* VYRefreshTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VYRefreshTableViewController.m; sourceTree = "<group>"; };
-		D821D42114F24B2A00806F06 /* VYRefreshTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VYRefreshTableViewController.xib; sourceTree = "<group>"; };
 		D821D42814F24B9F00806F06 /* ARROW_BLACK.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ARROW_BLACK.png; sourceTree = "<group>"; };
 		D821D42914F24B9F00806F06 /* ARROW_BLACK@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ARROW_BLACK@2x.png"; sourceTree = "<group>"; };
 		D821D42A14F24B9F00806F06 /* ARROW_BLUE.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ARROW_BLUE.png; sourceTree = "<group>"; };
@@ -206,7 +204,6 @@
 			children = (
 				D821D41F14F24B2A00806F06 /* VYRefreshTableViewController.h */,
 				D821D42014F24B2A00806F06 /* VYRefreshTableViewController.m */,
-				D821D42114F24B2A00806F06 /* VYRefreshTableViewController.xib */,
 			);
 			path = RefreshViewController;
 			sourceTree = "<group>";
@@ -307,7 +304,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D821D42514F24B2A00806F06 /* VYRefreshTableViewController.xib in Resources */,
 				D821D43014F24B9F00806F06 /* ARROW_BLACK.png in Resources */,
 				D821D43114F24B9F00806F06 /* ARROW_BLACK@2x.png in Resources */,
 				D821D43214F24B9F00806F06 /* ARROW_BLUE.png in Resources */,
@@ -497,6 +493,7 @@
 				D821D3F314F23F2800806F06 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D821D3F414F23F2800806F06 /* Build configuration list for PBXNativeTarget "RefreshTests" */ = {
 			isa = XCConfigurationList;
@@ -505,6 +502,7 @@
 				D821D3F614F23F2800806F06 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

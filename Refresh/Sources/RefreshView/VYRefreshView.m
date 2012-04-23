@@ -16,6 +16,9 @@
 static CGFloat const kRefreshViewHeight = 60.0;
 static CGFloat const kRefreshViewActionTopThreshold = -65.0;
 
+static CGFloat const kMargin = 10.0;
+static CGFloat const kPadding = 5.0;
+
 static NSTimeInterval const kScrollViewSlideAnimationDuration = 0.3;
 static CFTimeInterval const kArrowAnimationDuration = 0.15;
 
@@ -24,6 +27,8 @@ static CFTimeInterval const kArrowAnimationDuration = 0.15;
 @interface VYRefreshView ()
 
 @property (nonatomic, assign, readwrite) VYRefreshViewState state;
+
+- (void)alignSubviewsVerticaly:(NSArray *)subviews constrainedInRect:(CGRect)rect usingPadding:(CGFloat)padding;
 
 @end
 
@@ -35,7 +40,8 @@ static CFTimeInterval const kArrowAnimationDuration = 0.15;
     
     __strong UILabel *_statusLabel;
 	__strong UILabel *_detailsLabel;
-	__strong CALayer *_arrowLayer;
+    
+    __strong CALayer *_arrowLayer;
 	__strong UIActivityIndicatorView *_activityIndicator;
 }
 
@@ -88,11 +94,11 @@ static CFTimeInterval const kArrowAnimationDuration = 0.15;
 		_detailsLabel = [[UILabel alloc] initWithFrame:CGRectZero];
 		
         [self addSubview:_detailsLabel];
-		
-		// Create and set up arrow layer.
+        
+        // Create and set up arrow layer.
 		_arrowLayer = [[CALayer alloc] init];
         
-		[[self layer] addSublayer:_arrowLayer];
+		[self.layer addSublayer:_arrowLayer];
 		
         // Create and set up activity indicator.
 		_activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
@@ -124,7 +130,7 @@ static CFTimeInterval const kArrowAnimationDuration = 0.15;
     
     _scrollView = scrollView;
     
-    return [self initWithFrame:CGRectMake(0.0, 0.0 - _scrollView.bounds.size.height, _scrollView.bounds.size.width, _scrollView.bounds.size.height)];
+    return [self initWithFrame:CGRectOffset(_scrollView.bounds, 0.0, -CGRectGetHeight(_scrollView.bounds))];
 }
 
 #pragma mark -
@@ -135,8 +141,33 @@ static CFTimeInterval const kArrowAnimationDuration = 0.15;
     NSAssert(self.superview == _scrollView, @"Superview must be the same scrollview as specified during initialization.");
 }
 
+- (void)layoutSubviews
+{
+    CGRect constraintRect = CGRectMake(CGRectGetMinX(self.bounds) + kMargin, CGRectGetHeight(self.bounds) - kRefreshViewHeight + kMargin,
+                                       CGRectGetWidth(self.bounds) - 2 * kMargin, kRefreshViewHeight - 2 * kMargin);
+    
+    // Set labels bounds and align them.
+    CGFloat constraintWidth = CGRectGetWidth(constraintRect);
+    
+    CGSize statusLabelSize = [_statusLabel.text sizeWithFont:_statusLabel.font forWidth:constraintWidth lineBreakMode:_statusLabel.lineBreakMode];
+    CGSize detailsLabelSize = [_detailsLabel.text sizeWithFont:_detailsLabel.font forWidth:constraintWidth lineBreakMode:_detailsLabel.lineBreakMode];
+    
+    _statusLabel.bounds = CGRectMake(0.0, 0.0, statusLabelSize.width, statusLabelSize.height);
+    _detailsLabel.bounds = CGRectMake(0.0, 0.0, detailsLabelSize.width, detailsLabelSize.height);
+    
+    // Align labels.
+    [self alignSubviewsVerticaly:[NSArray arrayWithObjects:_statusLabel, _detailsLabel, nil] constrainedInRect:constraintRect usingPadding:kPadding];
+    
+    // Position arrow layer and activity indicator takin in account labels size and position.
+    CGRect labelsUnion = CGRectUnion(_statusLabel.frame, _detailsLabel.frame);
+    
+    _arrowLayer.bounds = CGRectMake(0.0, 0.0, 50.0, 50.0);
+    _arrowLayer.position = CGPointMake(CGRectGetMinX(labelsUnion) - CGRectGetMidX(_arrowLayer.bounds) - kPadding, CGRectGetMidY(constraintRect));
+    _activityIndicator.center = _arrowLayer.position;
+}
+
 #pragma mark -
-#pragma mark Private Accessors
+#pragma mark Accessors
 
 - (void)setState:(VYRefreshViewState)state
 {
@@ -164,7 +195,7 @@ static CFTimeInterval const kArrowAnimationDuration = 0.15;
             
             // Set arrow layer state to normal and unhide it.
 			[CATransaction begin];
-			[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
+            [CATransaction setDisableActions:YES];
             
             _arrowLayer.transform = CATransform3DIdentity;
 			_arrowLayer.hidden = NO;
@@ -182,7 +213,7 @@ static CFTimeInterval const kArrowAnimationDuration = 0.15;
 			[CATransaction begin];
 			[CATransaction setAnimationDuration:kArrowAnimationDuration];
             
-			_arrowLayer.transform = CATransform3DMakeRotation((M_PI / 180.0) * 180.0, 0.0, 0.0, 1.0);
+			_arrowLayer.transform = CATransform3DMakeRotation(M_PI, 0.0, 0.0, 1.0);
             
 			[CATransaction commit];
 			
@@ -198,7 +229,7 @@ static CFTimeInterval const kArrowAnimationDuration = 0.15;
             
             // Hide arrow layer.
 			[CATransaction begin];
-			[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions]; 
+            [CATransaction setDisableActions:YES];
             
 			_arrowLayer.hidden = YES;
             
@@ -213,15 +244,11 @@ static CFTimeInterval const kArrowAnimationDuration = 0.15;
 	_state = state;
 }
 
-#pragma mark -
-#pragma mark Public Accessors
-
 - (void)setStyle:(VYRefreshViewStyle)style
 {
     UIColor *labelColor = nil;
     UIColor *labelShadowColor = nil;
     UIImage *arrowImage = nil;
-    UIActivityIndicatorViewStyle activityIndicatorStyle = UIActivityIndicatorViewStyleWhite;
     
     switch (style)
     {
@@ -231,7 +258,6 @@ static CFTimeInterval const kArrowAnimationDuration = 0.15;
             labelColor = [UIColor colorWithRed:87.0/255.0 green:108.0/255.0 blue:137.0/255.0 alpha:1.0];
             labelShadowColor = [UIColor colorWithWhite:0.9 alpha:1.0];
             arrowImage = [UIImage imageNamed:@"ARROW_BLUE.png"];
-            activityIndicatorStyle = UIActivityIndicatorViewStyleGray;
             
             break;
         }
@@ -240,7 +266,6 @@ static CFTimeInterval const kArrowAnimationDuration = 0.15;
             labelColor = [UIColor whiteColor];
             labelShadowColor = [UIColor colorWithWhite:0.3 alpha:1.0];
             arrowImage = [UIImage imageNamed:@"ARROW_WHITE.png"];
-            activityIndicatorStyle = UIActivityIndicatorViewStyleWhite;
             
             break;
         }
@@ -249,7 +274,6 @@ static CFTimeInterval const kArrowAnimationDuration = 0.15;
             labelColor = [UIColor darkGrayColor];
             labelShadowColor = [UIColor colorWithWhite:0.9 alpha:1.0];
             arrowImage = [UIImage imageNamed:@"ARROW_GRAY.png"];
-            activityIndicatorStyle = UIActivityIndicatorViewStyleGray;
             
             break;
         }
@@ -258,7 +282,6 @@ static CFTimeInterval const kArrowAnimationDuration = 0.15;
             labelColor = [UIColor blackColor];
             labelShadowColor = [UIColor colorWithWhite:0.9 alpha:1.0];
             arrowImage = [UIImage imageNamed:@"ARROW_BLACK.png"];
-            activityIndicatorStyle = UIActivityIndicatorViewStyleGray;
             
             break;
         }
@@ -267,7 +290,6 @@ static CFTimeInterval const kArrowAnimationDuration = 0.15;
     }
     
     // Set status label properties.
-    _statusLabel.frame = CGRectMake(0.0, self.bounds.size.height - kRefreshViewHeight + 10, self.bounds.size.width, 20.0);
     _statusLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _statusLabel.backgroundColor = [UIColor clearColor];
     _statusLabel.font = [UIFont boldSystemFontOfSize:13.0];
@@ -277,7 +299,6 @@ static CFTimeInterval const kArrowAnimationDuration = 0.15;
     _statusLabel.textAlignment = UITextAlignmentCenter;
     
     // Set details label properties.
-    _detailsLabel.frame = CGRectMake(0.0, self.bounds.size.height - kRefreshViewHeight + 30.0, self.bounds.size.width, 20.0);
     _detailsLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _detailsLabel.backgroundColor = [UIColor clearColor];
     _detailsLabel.font = [UIFont systemFontOfSize:12.0];
@@ -287,14 +308,11 @@ static CFTimeInterval const kArrowAnimationDuration = 0.15;
     _detailsLabel.textAlignment = UITextAlignmentCenter;
     
     // Set arrow layer properties.
-    _arrowLayer.frame = CGRectMake(25.0, self.bounds.size.height + kRefreshViewActionTopThreshold, 30.0, kRefreshViewHeight - 10);
     _arrowLayer.contents = (id)arrowImage.CGImage;
     _arrowLayer.contentsGravity = kCAGravityResizeAspect;
-    _arrowLayer.contentsScale = [UIScreen mainScreen].scale;
     
     // Set activity indicator properties.
-    _activityIndicator.frame = CGRectMake(25.0, self.bounds.size.height - kRefreshViewHeight/2 - 10.0, 20.0, 20.0);
-    _activityIndicator.activityIndicatorViewStyle = activityIndicatorStyle;
+    _activityIndicator.color = labelColor;
     
     _style = style;
 }
@@ -361,6 +379,8 @@ static CFTimeInterval const kArrowAnimationDuration = 0.15;
     {
 		_detailsLabel.text = nil;
 	}
+    
+    [self setNeedsLayout];
 }
 
 #pragma mark -
@@ -391,6 +411,30 @@ static CFTimeInterval const kArrowAnimationDuration = 0.15;
 - (BOOL)isRefreshing
 {
     return self.state == VYRefreshViewStateRefreshing;
+}
+
+#pragma mark -
+#pragma mark Private Methods
+
+- (void)alignSubviewsVerticaly:(NSArray *)subviews constrainedInRect:(CGRect)rect usingPadding:(CGFloat)padding
+{
+    // Calculate content height.
+    CGFloat contentHeight = -padding;
+    
+    for (UIView *subview in subviews)
+    {
+        contentHeight += CGRectGetHeight(subview.bounds) + padding;
+    }
+    
+    // Align content.
+    CGFloat verticalShift = -contentHeight / 2.0;
+    
+    for (UIView *subview in subviews)
+    {
+        subview.center = CGPointMake(CGRectGetMidX(rect), CGRectGetMidY(rect) + CGRectGetMidY(subview.bounds) + verticalShift);
+        
+        verticalShift += CGRectGetHeight(subview.bounds) + padding;
+    }
 }
 
 @end

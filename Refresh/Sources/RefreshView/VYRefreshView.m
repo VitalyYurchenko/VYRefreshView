@@ -36,7 +36,7 @@ static CFTimeInterval const kArrowAnimationDuration = 0.15;
 
 @implementation VYRefreshView
 {
-    __strong UIScrollView *_scrollView;
+    __weak UIScrollView *_scrollView;
     
     __strong UILabel *_statusLabel;
 	__strong UILabel *_detailsLabel;
@@ -351,7 +351,7 @@ static CFTimeInterval const kArrowAnimationDuration = 0.15;
 {
 	if (![self isRefreshing] && (_scrollView.contentOffset.y <= kRefreshViewActionTopThreshold))
     {
-        if (!self.hidden && [self.delegate refreshViewShouldStartRefresh:self])
+        if (![self isHidden] && [self.delegate refreshViewShouldStartRefresh:self])
         {
             [self startRefreshing];
         }

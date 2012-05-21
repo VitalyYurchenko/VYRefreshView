@@ -20,7 +20,7 @@ static CGFloat const kMargin = 10.0;
 static CGFloat const kPadding = 5.0;
 
 static NSTimeInterval const kScrollViewSlideAnimationDuration = 0.3;
-static CFTimeInterval const kArrowAnimationDuration = 0.15;
+static CFTimeInterval const kArrowAnimationDuration = 0.25;
 
 // ********************************************************************************************************************************************************** //
 
@@ -143,8 +143,13 @@ static CFTimeInterval const kArrowAnimationDuration = 0.15;
 
 - (void)layoutSubviews
 {
-    CGRect constraintRect = CGRectMake(CGRectGetMinX(self.bounds) + kMargin, CGRectGetHeight(self.bounds) - kRefreshViewHeight + kMargin,
-                                       CGRectGetWidth(self.bounds) - 2 * kMargin, kRefreshViewHeight - 2 * kMargin);
+    CGRect constraintRect = CGRectMake
+    (
+        CGRectGetMinX(self.bounds) + kMargin,
+        CGRectGetHeight(self.bounds) - kRefreshViewHeight + kMargin,
+        CGRectGetWidth(self.bounds) - 2 * kMargin,
+        kRefreshViewHeight - 2 * kMargin
+    );
     
     // Set labels bounds and align them.
     CGFloat constraintWidth = CGRectGetWidth(constraintRect);
@@ -161,8 +166,8 @@ static CFTimeInterval const kArrowAnimationDuration = 0.15;
     // Position arrow layer and activity indicator takin in account labels size and position.
     CGRect labelsUnion = CGRectUnion(_statusLabel.frame, _detailsLabel.frame);
     
-    _arrowLayer.bounds = CGRectMake(0.0, 0.0, 50.0, 50.0);
-    _arrowLayer.position = CGPointMake(CGRectGetMinX(labelsUnion) - CGRectGetMidX(_arrowLayer.bounds) - kPadding, CGRectGetMidY(constraintRect));
+    _arrowLayer.bounds = CGRectMake(0.0, 0.0, 25.0, 25.0);
+    _arrowLayer.position = CGPointMake(CGRectGetMinX(labelsUnion) - CGRectGetMidX(_arrowLayer.bounds) - 2 * kPadding, CGRectGetMidY(constraintRect));
     _activityIndicator.center = _arrowLayer.position;
 }
 

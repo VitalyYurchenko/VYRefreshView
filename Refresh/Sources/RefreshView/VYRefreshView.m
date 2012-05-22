@@ -166,7 +166,7 @@ static CFTimeInterval const kArrowAnimationDuration = 0.25;
     // Position arrow layer and activity indicator takin in account labels size and position.
     CGRect labelsUnion = CGRectUnion(_statusLabel.frame, _detailsLabel.frame);
     
-    _arrowLayer.bounds = CGRectMake(0.0, 0.0, 25.0, 25.0);
+    _arrowLayer.bounds = CGRectMake(0.0, 0.0, 20.0, 20.0);
     _arrowLayer.position = CGPointMake(CGRectGetMinX(labelsUnion) - CGRectGetMidX(_arrowLayer.bounds) - 2 * kPadding, CGRectGetMidY(constraintRect));
     _activityIndicator.center = _arrowLayer.position;
 }
@@ -260,7 +260,7 @@ static CFTimeInterval const kArrowAnimationDuration = 0.25;
         case VYRefreshViewStyleDefault:
         case VYRefreshViewStyleBlue:
         {
-            labelColor = [UIColor colorWithRed:87.0/255.0 green:108.0/255.0 blue:137.0/255.0 alpha:1.0];
+            labelColor = [UIColor colorWithRed:76.0/255.0 green:86.0/255.0 blue:108.0/255.0 alpha:1.0];
             labelShadowColor = [UIColor colorWithWhite:0.9 alpha:1.0];
             arrowImage = [UIImage imageNamed:@"ARROW_BLUE.png"];
             

@@ -13,22 +13,20 @@
 
 // ********************************************************************************************************************************************************** //
 
-static CGFloat const kRefreshViewHeight = 60.0;
-static CGFloat const kRefreshViewActionTopThreshold = -65.0;
+static const CGFloat kVYRefreshViewHeight = 60.0;
+static const CGFloat kVYRefreshViewActionTopThreshold = -65.0;
 
-static CGFloat const kMargin = 10.0;
-static CGFloat const kPadding = 5.0;
+static const CGFloat kVYRefreshViewMargin = 10.0;
+static const CGFloat kVYRefreshViewPadding = 5.0;
 
-static NSTimeInterval const kScrollViewSlideAnimationDuration = 0.3;
-static CFTimeInterval const kArrowAnimationDuration = 0.25;
+static const NSTimeInterval kVYRefreshViewScrollViewSlideAnimationDuration = 0.3;
+static const CFTimeInterval kVYRefreshViewArrowAnimationDuration = 0.25;
 
 // ********************************************************************************************************************************************************** //
 
 @interface VYRefreshView ()
 
-@property (nonatomic, assign, readwrite) VYRefreshViewState state;
-
-- (void)alignSubviewsVerticaly:(NSArray *)subviews constrainedInRect:(CGRect)rect usingPadding:(CGFloat)padding;
+@property (nonatomic, readwrite) VYRefreshViewState state;
 
 @end
 
@@ -38,29 +36,19 @@ static CFTimeInterval const kArrowAnimationDuration = 0.25;
 {
     __weak UIScrollView *_scrollView;
     
-    __strong UILabel *_statusLabel;
-	__strong UILabel *_detailsLabel;
+    UILabel *_statusLabel;
+    UILabel *_detailsLabel;
     
-    __strong CALayer *_arrowLayer;
-	__strong UIActivityIndicatorView *_activityIndicator;
+    CALayer *_arrowLayer;
+    UIActivityIndicatorView *_activityIndicator;
 }
-
-@synthesize state = _state;
-@synthesize style = _style;
-
-@synthesize titleForNormalState = _titleForNormalState;
-@synthesize titleForPullingState = _titleForPullingState;
-@synthesize titleForRefreshingState = _titleForRefreshingState;
-@synthesize titleForLastRefreshDate = _titleForLastRefreshDate;
-
-@synthesize delegate = _delegate;
 
 #pragma mark -
 #pragma mark Object Lifecycle
 
 + (VYRefreshView *)refreshViewForScrollView:(UIScrollView *)scrollView
 {
-    __autoreleasing VYRefreshView *refreshView = [[VYRefreshView alloc] initWithScrollView:scrollView];
+    VYRefreshView *refreshView = [[VYRefreshView alloc] initWithScrollView:scrollView];
     
     return refreshView;
 }
@@ -143,13 +131,11 @@ static CFTimeInterval const kArrowAnimationDuration = 0.25;
 
 - (void)layoutSubviews
 {
-    CGRect constraintRect = CGRectMake
-    (
-        CGRectGetMinX(self.bounds) + kMargin,
-        CGRectGetHeight(self.bounds) - kRefreshViewHeight + kMargin,
-        CGRectGetWidth(self.bounds) - 2 * kMargin,
-        kRefreshViewHeight - 2 * kMargin
-    );
+    CGRect constraintRect = CGRectMake(
+        CGRectGetMinX(self.bounds) + kVYRefreshViewMargin,
+        CGRectGetHeight(self.bounds) - kVYRefreshViewHeight + kVYRefreshViewMargin,
+        CGRectGetWidth(self.bounds) - 2.0 * kVYRefreshViewMargin,
+        kVYRefreshViewHeight - 2.0 * kVYRefreshViewMargin);
     
     // Set labels bounds and align them.
     CGFloat constraintWidth = CGRectGetWidth(constraintRect);
@@ -161,13 +147,15 @@ static CFTimeInterval const kArrowAnimationDuration = 0.25;
     _detailsLabel.bounds = CGRectMake(0.0, 0.0, detailsLabelSize.width, detailsLabelSize.height);
     
     // Align labels.
-    [self alignSubviewsVerticaly:[NSArray arrayWithObjects:_statusLabel, _detailsLabel, nil] constrainedInRect:constraintRect usingPadding:kPadding];
+    [self alignSubviewsVerticaly:@[_statusLabel, _detailsLabel] constrainedInRect:constraintRect usingPadding:kVYRefreshViewPadding];
     
     // Position arrow layer and activity indicator takin in account labels size and position.
     CGRect labelsUnion = CGRectUnion(_statusLabel.frame, _detailsLabel.frame);
     
     _arrowLayer.bounds = CGRectMake(0.0, 0.0, 20.0, 20.0);
-    _arrowLayer.position = CGPointMake(CGRectGetMinX(labelsUnion) - CGRectGetMidX(_arrowLayer.bounds) - 2 * kPadding, CGRectGetMidY(constraintRect));
+    _arrowLayer.position = CGPointMake(
+        CGRectGetMinX(labelsUnion) - CGRectGetMidX(_arrowLayer.bounds) - 2.0 * kVYRefreshViewPadding,
+        CGRectGetMidY(constraintRect));
     _activityIndicator.center = _arrowLayer.position;
 }
 
@@ -185,7 +173,7 @@ static CFTimeInterval const kArrowAnimationDuration = 0.25;
             {
                 // Animate arrow layer to normal state.
                 [CATransaction begin];
-                [CATransaction setAnimationDuration:kArrowAnimationDuration];
+                [CATransaction setAnimationDuration:kVYRefreshViewArrowAnimationDuration];
                 
                 _arrowLayer.transform = CATransform3DIdentity;
                 
@@ -216,7 +204,7 @@ static CFTimeInterval const kArrowAnimationDuration = 0.25;
             
             // Animate arrow layer to pulling state.
 			[CATransaction begin];
-			[CATransaction setAnimationDuration:kArrowAnimationDuration];
+			[CATransaction setAnimationDuration:kVYRefreshViewArrowAnimationDuration];
             
 			_arrowLayer.transform = CATransform3DMakeRotation(M_PI, 0.0, 0.0, 1.0);
             
@@ -260,7 +248,7 @@ static CFTimeInterval const kArrowAnimationDuration = 0.25;
         case VYRefreshViewStyleDefault:
         case VYRefreshViewStyleBlue:
         {
-            labelColor = [UIColor colorWithRed:76.0/255.0 green:86.0/255.0 blue:108.0/255.0 alpha:1.0];
+            labelColor = [UIColor colorWithRed:87.0/255.0 green:108.0/255.0 blue:137.0/255.0 alpha:1.0];
             labelShadowColor = [UIColor colorWithWhite:0.9 alpha:1.0];
             arrowImage = [UIImage imageNamed:@"ARROW_BLUE.png"];
             
@@ -301,7 +289,7 @@ static CFTimeInterval const kArrowAnimationDuration = 0.25;
     _statusLabel.textColor = labelColor;
     _statusLabel.shadowColor = labelShadowColor;
     _statusLabel.shadowOffset = CGSizeMake(0.0, 1.0);
-    _statusLabel.textAlignment = UITextAlignmentCenter;
+    _statusLabel.textAlignment = NSTextAlignmentCenter;
     
     // Set details label properties.
     _detailsLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -310,7 +298,7 @@ static CFTimeInterval const kArrowAnimationDuration = 0.25;
     _detailsLabel.textColor = labelColor;
     _detailsLabel.shadowColor = labelShadowColor;
     _detailsLabel.shadowOffset = CGSizeMake(0.0, 1.0);
-    _detailsLabel.textAlignment = UITextAlignmentCenter;
+    _detailsLabel.textAlignment = NSTextAlignmentCenter;
     
     // Set arrow layer properties.
     _arrowLayer.contents = (id)arrowImage.CGImage;
@@ -329,23 +317,26 @@ static CFTimeInterval const kArrowAnimationDuration = 0.25;
 {
 	if ([self isRefreshing])
     {
-		CGFloat topOffset = MAX(-_scrollView.contentOffset.y, 0);
-		topOffset = MIN(topOffset, kRefreshViewHeight);
+		CGFloat topOffset = MAX(-_scrollView.contentOffset.y, 0.0);
+		topOffset = MIN(topOffset, kVYRefreshViewHeight);
         
 		_scrollView.contentInset = UIEdgeInsetsMake(topOffset, 0.0, 0.0, 0.0);
 	}
     else if ([_scrollView isDragging])
     {
-        if ((self.state == VYRefreshViewStatePulling) && (_scrollView.contentOffset.y > kRefreshViewActionTopThreshold) && (_scrollView.contentOffset.y < 0.0))
+        if ((self.state == VYRefreshViewStatePulling) &&
+            (_scrollView.contentOffset.y > kVYRefreshViewActionTopThreshold) &&
+            (_scrollView.contentOffset.y < 0.0))
         {
             self.state = VYRefreshViewStateNormal;
         }
-        else if ((self.state == VYRefreshViewStateNormal) && (_scrollView.contentOffset.y < kRefreshViewActionTopThreshold))
+        else if ((self.state == VYRefreshViewStateNormal) &&
+                 (_scrollView.contentOffset.y < kVYRefreshViewActionTopThreshold))
         {
             self.state = VYRefreshViewStatePulling;
         }
 		
-		if (_scrollView.contentInset.top != 0)
+		if (_scrollView.contentInset.top != 0.0)
         {
 			_scrollView.contentInset = UIEdgeInsetsZero;
 		}
@@ -354,7 +345,7 @@ static CFTimeInterval const kArrowAnimationDuration = 0.25;
 
 - (void)scrollViewDidEndDragging
 {
-	if (![self isRefreshing] && (_scrollView.contentOffset.y <= kRefreshViewActionTopThreshold))
+	if (![self isRefreshing] && (_scrollView.contentOffset.y <= kVYRefreshViewActionTopThreshold))
     {
         if (![self isHidden] && [self.delegate refreshViewShouldStartRefresh:self])
         {
@@ -371,7 +362,7 @@ static CFTimeInterval const kArrowAnimationDuration = 0.25;
 #pragma mark Date Management
 
 - (void)updateLastRefreshDate
-{	
+{
 	if ([self.delegate respondsToSelector:@selector(refreshViewLastRefreshDate:)])
     {
 		NSDate *date = [self.delegate refreshViewLastRefreshDate:self];
@@ -393,9 +384,9 @@ static CFTimeInterval const kArrowAnimationDuration = 0.25;
 
 - (void)startRefreshing
 {
-    [UIView animateWithDuration:kScrollViewSlideAnimationDuration animations:^(void)
+    [UIView animateWithDuration:kVYRefreshViewScrollViewSlideAnimationDuration animations:^(void)
     {
-        _scrollView.contentInset = UIEdgeInsetsMake(kRefreshViewHeight, 0.0, 0.0, 0.0);
+        _scrollView.contentInset = UIEdgeInsetsMake(kVYRefreshViewHeight, 0.0, 0.0, 0.0);
     }];
     
     self.state = VYRefreshViewStateRefreshing;
@@ -403,7 +394,7 @@ static CFTimeInterval const kArrowAnimationDuration = 0.25;
 
 - (void)stopRefreshing
 {
-    [UIView animateWithDuration:kScrollViewSlideAnimationDuration animations:^(void)
+    [UIView animateWithDuration:kVYRefreshViewScrollViewSlideAnimationDuration animations:^(void)
     {
         _scrollView.contentInset = UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0);
     }];

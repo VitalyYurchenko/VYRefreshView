@@ -15,15 +15,14 @@
 
 // ********************************************************************************************************************************************************** //
 
-enum
+typedef NS_ENUM(NSUInteger, VYRefreshViewState)
 {
     VYRefreshViewStateNormal = 0,
 	VYRefreshViewStatePulling,
 	VYRefreshViewStateRefreshing,
 };
-typedef NSUInteger VYRefreshViewState;
 
-enum
+typedef NS_ENUM(NSUInteger, VYRefreshViewStyle)
 {
     VYRefreshViewStyleDefault = 0,
     VYRefreshViewStyleBlue,
@@ -31,14 +30,13 @@ enum
 	VYRefreshViewStyleGray,
     VYRefreshViewStyleBlack
 };
-typedef NSUInteger VYRefreshViewStyle;
 
 // ********************************************************************************************************************************************************** //
 
 @interface VYRefreshView : UIView
 
-@property (nonatomic, assign, readonly) VYRefreshViewState state;
-@property (nonatomic, assign) VYRefreshViewStyle style;
+@property (nonatomic, readonly) VYRefreshViewState state;
+@property (nonatomic) VYRefreshViewStyle style;
 
 @property (nonatomic, copy) NSString *titleForNormalState;
 @property (nonatomic, copy) NSString *titleForPullingState;
